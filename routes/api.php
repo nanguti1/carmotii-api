@@ -9,6 +9,9 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PricingPlanController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,4 +89,18 @@ Route::middleware('auth:sanctum', 'role:admin')->prefix('admin')->group(function
     Route::get('/bookings', [BookingController::class, 'adminIndex']);
     Route::get('/cars/pending', [CarController::class, 'pendingCars']);
     Route::put('/cars/{car}/approve', [CarController::class, 'approveCar']);
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::put('/notifications/{notification}/read', [NotificationController::class, 'markAsRead']);
+    Route::put('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::get('/analytics/dashboard', [AnalyticsController::class, 'dashboard']);
+    Route::get('/analytics/revenue', [AnalyticsController::class, 'revenue']);
+    Route::get('/analytics/users', [AnalyticsController::class, 'users']);
+    Route::get('/analytics/bookings', [AnalyticsController::class, 'bookings']);
+    Route::get('/analytics/car-performance', [AnalyticsController::class, 'carPerformance']);
+    Route::get('/analytics/top-cars', [AnalyticsController::class, 'topCars']);
+    Route::get('/reports', [ReportController::class, 'index']);
+    Route::post('/reports/generate', [ReportController::class, 'generate']);
+    Route::post('/reports/download', [ReportController::class, 'download']);
+    Route::get('/reports/download-file/{filepath}', [ReportController::class, 'downloadFile']);
 });
